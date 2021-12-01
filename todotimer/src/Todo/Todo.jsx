@@ -5,9 +5,10 @@ import { TodoList } from "./TodoList"
 function Todo(){
     const [todo,setTodo] = useState([])
     const [toogle,setToogle] = useState(false)
+    const [page,setPage] = useState(1)
 
     useEffect(()=>{
-        fetch(`http://localhost:3000/posts`)
+        fetch(`http://localhost:3000/posts?_limit=3&_page=${page}`)
         .then(res => res.json())
         .then(res => {
             setTodo([...res])
@@ -15,7 +16,7 @@ function Todo(){
         .catch(err=>{
             console.log(err)
         })
-    },[toogle])
+    },[toogle,page])
     
     const handleChange= async(title)=>{
         const payload={
@@ -69,6 +70,20 @@ function Todo(){
         }
        
     }
+    const handlePage=(e)=>{
+            var val = e.target.name
+            if(val === "PREV"){
+                if(page === 1){
+                    setPage(1)
+                }
+                else{
+                    setPage((prev)=>prev-1)
+                }
+            }
+            else if(val === "NEXT"){
+                todo.length<3?setPage((prev)=>prev):setPage((prev)=>prev+1)
+            }
+    }
     return(
         <div>
             <TodoInput onTask={handleChange}/>
@@ -84,6 +99,9 @@ function Todo(){
                     />
                 })
             }
+
+            <button name ="PREV" onClick={(e)=>{handlePage(e)}}>Prev</button>
+            <button NAME="NEXT" onClick={(e)=>{handlePage(e)}}>Next</button>
         </div>
     )
 }
