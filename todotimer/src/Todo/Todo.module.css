@@ -1,0 +1,13 @@
+.todoOne{
+    display: flex;
+    gap: 10px;
+}
+.todoOne>p{
+    margin-top: 35px;
+}
+.todoOne>button{
+    height: 50px;
+    margin-top: 30px;
+    padding: 10px;
+    font-size: 20px;
+}

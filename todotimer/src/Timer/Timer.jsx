@@ -15,6 +15,7 @@ function Timer({initial,final}){
                 return prev+1
             })
         },1000)
+        return ()=> clearInterval(id)
     },[final])
     return(
         <div>
